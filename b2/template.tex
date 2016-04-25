@@ -1,0 +1,99 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             template.tex                                                              %
+%                                                                                       %
+%            Author: Sergej Lewin 10/2008                                               %
+%                                                                                       %    
+% !!!Man braucht noch die Datei Ueb.sty (im gleichen Ordner wie die Hauptdatei)!!!      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,11pt]{article}             % bestimmt das Aussehen eines Dokuments
+\usepackage{Ueb}                                  % vordefinierte Makros
+
+%!!!!anpassen an das Betriebssystem!!!, um Umlaute zu verwenden
+\usepackage[utf8]{inputenc}                      %Linux
+%\usepackage[latin1]{inputenc}                    %Windows
+%\usepackage[applemac]{inputenc}                  %Mac
+
+
+
+%Namen und Matrikelnummern anpassen
+%\zweinamen{Name1}{Matrikelnummer1}{Name2}{Matrikelnummer2} %2er Gruppen
+\dreinamen{Tanja Wilke}{Jan Rathner}{Alexander Schlüter} %3er Gruppe
+
+%Briefkastennummer anpassen. z. B. \briefkasten{104}
+\briefkasten{83}
+
+%Termin der Uebungsgruppe und Raum anpassen z. B. \termin{Mo. 12-14 , SR2}
+\termin{Do. 8-10, SR1A}
+
+%Blattnummer anpassen z. B. \blatt{5}
+\blatt{2}
+
+\begin{document}
+%Hier kommt der Text des Dokuments......
+\setcounter{excnt}{6}
+\begin{ex}
+\begin{exlist}
+  \leavevmode
+  \item 
+Die Auflösung ist nicht äquivalent, da das rechte Modell nicht sicherstellt,
+dass zu jeder Entität $e$ vom Typ $E$ jeweils genau eine Entität $a$ vom Typ $A$,
+eine Entität $b$ vom Typ $B$ und eine Entität $c$ vom Typ $C$ existieren, 
+sodass $(a,e)\in R_A$, $(b,e)\in R_B$ und $(c,e)\in R_C$ gilt.
+
+Zum Beispiel erlaubt das rechte Modell eine Instanz mit den Entitätsmengen
+(benutze selbe Symbole wie für Entitätstypen):
+\begin{align*}
+  A&=\set{a},\quad B=C=\varnothing,\quad E=\set{e} \\
+  R_A&=\set{(a,e)},\quad R_B=R_C=\varnothing
+\end{align*}
+Dies lässt sich nicht in das linke Modell übersetzen.
+
+\item
+Es muss vollständige Teilnahme von $E$ an $R_A$, $R_B$ und $R_C$ gelten, d.h.
+jede Entität vom Typ $E$ muss jeweils in mindestens einer Beziehung vorkommen.
+Außerdem darf jede Entität vom Typ $E$ nur \emph{genau} einmal in den
+Beziehungen vorkommen. D.h. die Kardinalität der Beziehungstypen $R_A$, $R_B$,
+$R_C$ muss so angepasst werden, dass die Verbindungen zum Entitätstyp $E$ den
+(min, max) Bezeichner $(1,1)$ bekommen. 
+\vspace{2cm}
+\item
+
+  \begin{center}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shadows}
+
+\tikzstyle{every entity} = [top color=white, bottom color=blue!30, 
+                            draw=blue!50!black!100, drop shadow]
+\tikzstyle{every weak entity} = [drop shadow={shadow xshift=.7ex, 
+                                 shadow yshift=-.7ex}]
+\tikzstyle{every attribute} = [top color=white, bottom color=yellow!20, 
+                               draw=yellow, node distance=1cm, drop shadow]
+\tikzstyle{every relationship} = [top color=white, bottom color=red!20, 
+                                  draw=red!50!black!100, drop shadow]
+\tikzstyle{every isa} = [top color=white, bottom color=green!20, 
+                         draw=green!50!black!100, drop shadow]
+
+\resizebox{0.8\textwidth}{!}{
+\begin{tikzpicture}[node distance=1.5cm, every edge/.style={link},baseline]
+
+  \node[entity] (A) {A};
+  \node[relationship] (RA) [below=1cm of A] {$R_A$} edge node [right] {(0,N)} (A);
+  \node[entity] (E) [below=1cm of RA] {E} edge [total] node [right] {(1,1)} (RA);
+  \node[relationship] (RB) [left=1cm of E] {$R_B$} edge [total] node [above] {(1,1)} (E);
+  \node[entity] (B) [left=1cm of RB] {B} edge node [above] {(0,N)} (RB);
+  \node[relationship] (RC) [right=1cm of E] {$R_C$} edge [total] node [above] {(1,1)} (E);
+  \node[entity] (C) [right=1cm of RC] {C} edge node [above] {(0,N)} (RC);
+
+\end{tikzpicture}
+}
+\end{center}
+\vspace{2cm}
+\item Diese Alternative ist auch nicht äquivalent zum ersten Modell, da es nicht
+  möglich ist, eine Beziehung zwischen \emph{drei} Entitäten darzustellen. Sind
+  zum Beispiel $a\in A$, $b\in B$ und $c_1, c_2\in C$ und gibt es im
+  ursprünglichen Modell die Beziehungen $(a, b, c_1)\in R$ und $(a, b, c_2)\in
+  R$, so kann dies nicht ohne Informationsverlust in das alternative Modell
+  übertragen werden.
+\end{exlist}
+\end{ex}
+\end{document}
