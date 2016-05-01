@@ -1,0 +1,55 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             template.tex                                                              %
+%                                                                                       %
+%            Author: Sergej Lewin 10/2008                                               %
+%                                                                                       %    
+% !!!Man braucht noch die Datei Ueb.sty (im gleichen Ordner wie die Hauptdatei)!!!      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,11pt]{article}             % bestimmt das Aussehen eines Dokuments
+\usepackage{Ueb}                                  % vordefinierte Makros
+
+%!!!!anpassen an das Betriebssystem!!!, um Umlaute zu verwenden
+\usepackage[utf8]{inputenc}                      %Linux
+%\usepackage[latin1]{inputenc}                    %Windows
+%\usepackage[applemac]{inputenc}                  %Mac
+
+
+
+%Namen und Matrikelnummern anpassen
+%\zweinamen{Name1}{Matrikelnummer1}{Name2}{Matrikelnummer2} %2er Gruppen
+\dreinamen{Tanja Wilke}{Jan Rathner}{Alexander Schlüter} %3er Gruppe
+
+%Briefkastennummer anpassen. z. B. \briefkasten{104}
+\briefkasten{83}
+
+%Termin der Uebungsgruppe und Raum anpassen z. B. \termin{Mo. 12-14 , SR2}
+\termin{Do. 8-10, SR1A}
+
+%Blattnummer anpassen z. B. \blatt{5}
+\blatt{3}
+
+\begin{document}
+%Hier kommt der Text des Dokuments......
+\setcounter{excnt}{11}
+\begin{ex}
+\begin{exlist}
+  \leavevmode
+  \item
+  \textbf{Entwurf 1}: Nein, es muss für jede Betriebssysteminstanz mit Typ Linux eine Beziehung für das Ticket erstellt werden. \\
+\textbf{Entwurf 2}:  Ja, denn es genügt, eine einzige Beziehung \emph{betrifft\_b} zwischen dem Ticket und der Betriebssystemtypentität Linux zu erstellen. \\
+\textbf{Entwurf 3}: Ja, wie bei Entwurf 2 genügt es eine Beziehung hinzuzufügen. 
+\item
+\textbf{Entwurf 1}: Ja, es können beliebig viele Entitäten
+\textit{Betriebsysteminstanz} mit beliebigem Typ erstellt werden. \\
+\textbf{Entwurf 2}: Ja, auch hier könne beliebig Betriebsysteminstanzen
+hinzugefügt werden. \\
+\textbf{Entwurf 3}: Nein, hier gibt es mehrere Probleme. Die Spezialisierung von
+Betriebssystemtyp zu Betriebssysteminstanz ist vollständig, also muss es für
+jeden Typen eine Instanz geben. Außerdem muss das \emph{Typ}-Attribut eindeutig
+sein, da es als Primärschlüssel gekennzeichnet ist. Da durch die Spezialisierung
+jede Entität \emph{Betriebssysteminstanz} auch eine Entität \emph{Betriebssystemtyp}
+ist, darf es von jedem Typen nur eine Instanz geben (wegen der Vollständigkeit
+also genau eine).
+\end{exlist}
+\end{ex}
+\end{document}
