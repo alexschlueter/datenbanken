@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             template.tex                                                              %
+%                                                                                       %
+%            Author: Sergej Lewin 10/2008                                               %
+%                                                                                       %    
+% !!!Man braucht noch die Datei Ueb.sty (im gleichen Ordner wie die Hauptdatei)!!!      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,11pt]{article}             % bestimmt das Aussehen eines Dokuments
+\usepackage{Ueb}                                  % vordefinierte Makros
+
+%!!!!anpassen an das Betriebssystem!!!, um Umlaute zu verwenden
+\usepackage[utf8]{inputenc}                      %Linux
+%\usepackage[latin1]{inputenc}                    %Windows
+%\usepackage[applemac]{inputenc}                  %Mac
+
+
+
+%Namen und Matrikelnummern anpassen
+%\zweinamen{Name1}{Matrikelnummer1}{Name2}{Matrikelnummer2} %2er Gruppen
+\dreinamen{Tanja Wilke}{Jan Rathner}{Alexander Schlüter} %3er Gruppe
+
+%Briefkastennummer anpassen. z. B. \briefkasten{104}
+\briefkasten{83}
+
+%Termin der Uebungsgruppe und Raum anpassen z. B. \termin{Mo. 12-14 , SR2}
+\termin{Do. 8-10, SR1A}
+
+%Blattnummer anpassen z. B. \blatt{5}
+\blatt{4}
+
+\begin{document}
+%Hier kommt der Text des Dokuments......
+\setcounter{excnt}{15}
+\begin{ex}
+  Die Anfrage liefert nicht das gewünschte Ergebnis, da sowohl das
+  Relationsschema \textbf{Benutzer} als auch das Relationsschema
+  \textbf{Computer} ein Attribut mit Namen \emph{Anmerkungen} hat.
+  Beim Equijoin werden die Tupel anhand dieses Attributes verglichen und da die
+  Anmerkungen überall unterschiedlich sind, ist das Ergebnis des Equijoins eine
+  leere Relation. Stattdessen sollte man mindestens eins der Anmerkungsattribute vor dem
+  Equijoin umbenennen:
+  \begin{equation*}
+   \Pi_{\text{PersonalNr,Name,Aufträge}}(\rho_{(\text{PersonalNr,Name,B.Anmerkungen})}(\text{Benutzer})\bowtie\text{gehört}\bowtie\text{Computer}) 
+  \end{equation*}
+  Man könnte das Anmerkungsattribut auch wegfallen lassen, da es hinterher von
+  der Projektion sowieso gelöscht wird:
+  \begin{equation*}
+   \Pi_{\text{PersonalNr,Name,Aufträge}}(\Pi_{\text{PersonalNr,Name}}(\text{Benutzer})\bowtie\text{gehört}\bowtie\text{Computer}) 
+  \end{equation*}
+\end{ex}
+\end{document}
