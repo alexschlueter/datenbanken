@@ -1,0 +1,114 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             template.tex                                                              %
+%                                                                                       %
+%            Author: Sergej Lewin 10/2008                                               %
+%                                                                                       %    
+% !!!Man braucht noch die Datei Ueb.sty (im gleichen Ordner wie die Hauptdatei)!!!      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,11pt]{article}             % bestimmt das Aussehen eines Dokuments
+\usepackage{Ueb}                                  % vordefinierte Makros
+
+%!!!!anpassen an das Betriebssystem!!!, um Umlaute zu verwenden
+\usepackage[utf8]{inputenc}                      %Linux
+%\usepackage[latin1]{inputenc}                    %Windows
+%\usepackage[applemac]{inputenc}                  %Mac
+
+
+
+%Namen und Matrikelnummern anpassen
+%\zweinamen{Name1}{Matrikelnummer1}{Name2}{Matrikelnummer2} %2er Gruppen
+\dreinamen{Tanja Wilke}{Jan Rathner}{Alexander Schlüter} %3er Gruppe
+
+%Briefkastennummer anpassen. z. B. \briefkasten{104}
+\briefkasten{83}
+
+%Termin der Uebungsgruppe und Raum anpassen z. B. \termin{Mo. 12-14 , SR2}
+\termin{Do. 8-10, SR1A}
+
+%Blattnummer anpassen z. B. \blatt{5}
+\blatt{5}
+
+\begin{document}
+%Hier kommt der Text des Dokuments......
+\setcounter{excnt}{17}
+\begin{ex}
+  \begin{exlist}
+    \leavevmode
+  \item Wird zuerst das kartesische Produkt $r\times s$ gebildet, so werden
+    sofort $n\cdot m$ Tupel erstellt, wenn $n$ die Anzahl der Tupel in $r$ und
+    $m$ die Anzahl der Tupel in $s$ ist. Der Equijoin ist wahrscheinlich in den
+    meisten Implementationen schneller, weil bei der Iteration über die Tupel
+    sofort die Attribute im Schnitt verglichen werden können und dadurch eine
+    Explosion der Tupelzahl verhindert werden kann.
+   
+  \item  
+    \begin{exlist}
+    \item Damit die Ausdrücke sinnvoll sind, dürfen in $P$ und $Q$ nur die
+      Attribute von $R$ vorkommen. Dann gilt die Äquivalenz ohne
+      Einschränkungen. Möglicherweise ist die erste Variante schneller, da nicht
+      zweimal über die Tupel iteriert werden muss.
+    \item In $X$ dürfen nur Attribute von $R$ vorkommen und in $P$ nur solche,
+      die in $X$ vorkommen. Wenn $P$ nur wenige Tupel selektiert, dann ist die
+      zweite Variante schneller, da die Tupelanzahl schnell reduziert wird. Gibt
+      es viele Tupel, die in den Attributen in $X$ übereinstimmen, dann wird die
+      Tupelanzahl durch die Projektion stark reduziert und die erste Variante
+      ist vielleicht schneller.
+    \item Dies ist nur sinnvoll, wenn in $X$ nur Attribute vorkommen, die auch
+      in $Y$ vorkommen. Dann sind die Ausdrücke äquivalent. Die zweite Variante
+      ist möglicherweise schneller, da nur einmal über die Tupel iteriert werden muss.
+    \item In $P$ dürfen nur Attribute aus $R$ vorkommen. Die zweite Variante ist
+      vielleicht schneller, da die Tupelanzahl stark reduziert werden kann, wenn
+      $P$ nur wenige Tupel selektiert. Der Equijoin ist mit $n\cdot m$ nötigen
+      Vergleichen relativ langsam, also lohnt sich eine vorherige Reduzierung
+      der Tupelanzahl.
+    \end{exlist}
+  \item Der folgende Ausdruck ist effizienter:
+    \begin{equation*}
+     \Pi_{A,C}(\sigma_{A>5}(r))\bowtie\Pi_{C,E}(s)
+    \end{equation*}
+  \end{exlist}
+\end{ex}
+\begin{ex}
+\begin{exlist}
+\leavevmode 
+\item 
+  \begin{exlist}
+  \item Die Namen aller Karteninhaber, die in Münster wohnen und Studenten sind
+    oder die in Kattenvenne wohnen und kein Student sind. 
+  \item Die Bezeichner aller Gerichte, die maximalen Preis unter den Gerichten haben.
+  \item Die Namen aller Karteninhaber, mit deren Karte nicht am 01.02.2016 in
+    der Mensa am Ring ein Gyrosteller gekauft wurde.
+  \end{exlist}
+\item 
+  \begin{exlist}
+  \item $\begin{aligned}[t]\{(k\text{.Inhabername}, m\text{.Guthaben})\mid
+      k\in\text{karteninhaber}&\land m\in\text{mensakarte}\\
+&\land k.\text{KartenID}=m.\text{KartenID}\}\end{aligned}$
+\item $\begin{aligned}[t]\{(k\text{.Inhabername}, k\text{.Wohnort})\mid
+    k\in\text{karteninhaber}&\land\exists
+    l\in\text{kauft}(l.\text{Bezeichner}=\text{'Pommes'}\\
+    &\land\exists b\in\text{bezahlung}(b.\text{Nummer}=l.\text{Nummer}\\
+    &\land b.\text{KartenID}=k.\text{KartenID}))\}\end{aligned}$
+  \item $\begin{aligned}[t]\{(m\text{.Mensaname})\mid
+      m\in\text{mensa}&\land \forall l\in\text{mensa}(m.\text{Sitzplätze}\leq l.\text{Sitzplätze})\}\end{aligned}$
+  \item $\begin{aligned}[t]\{(m\text{.Mensaname})\mid
+      m\in\text{mensa}&\land \nexists
+      b\in\text{bezahlung}(b.\text{MensaName}=m.\text{Mensaname}\\
+&\land\exists
+      k\in\text{karteninhaber}(k.\text{KartenID}=b.\text{KartenID}\\
+&\land
+      k.\text{Inhabername}=\text{'Aaron Atom'}))\}\end{aligned}$
+  \item $\begin{aligned}[t]\{(m\text{.Mensaname})\mid
+      m\in\text{mensa}&\land \forall a\in\text{bietetan}(a.\text{Mensaname}\neq
+      m.\text{Mensaname}\\
+&\lor a.\text{Datum}\neq\text{'03.04.2016'}\\
+&\lor\exists
+      k1\in\text{kauft}(k1.\text{Bezeichner}=a.\text{Bezeichner}\\
+&\land\exists
+      k2\in\text{kauft}(k2.\text{Bezeichner}=a.\text{Bezeichner}\\
+&\land
+      k2.\text{Nummer}\neq k1.\text{Nummer})))\}\end{aligned}$
+  \end{exlist}
+\end{exlist}
+\end{ex}
+\end{document}
